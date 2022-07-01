@@ -54,7 +54,6 @@ public class PasswordCracker {
         allCombos(numChars, "");
     }
 
-    // Private helper for allCombos:
     // Given a certain number of characters remaining 'numCharsLeft', 
     // prints out strings of all permutations of 'soFar' plus the characters
     // found in the CHARS constant
