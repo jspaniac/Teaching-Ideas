@@ -2,11 +2,10 @@ import java.util.*;
 import static java.util.Map.entry;
 import java.io.*;
 
-public class MorseDecoder {
+public class MorseDecoderCharacter {
     private Map<Character, String> charToRep;
     private Set<String> dict;
     private Set<String> prefixes;
-    private Map<String, String> wordToRep;
 
     public static final Map<Character, String> MORSE_CODE = Map.ofEntries(
             entry('a', ".-"), entry('b', "-..."), entry('c', "-.-."), entry('d', "-.."),
@@ -35,23 +34,19 @@ public class MorseDecoder {
         return dict;
     }
 
-    public MorseDecoder(Map<Character, String> charToRep, Set<String> dict) {
+    public MorseDecoderCharacter(Map<Character, String> charToRep, Set<String> dict) {
         this.charToRep = charToRep;
         this.dict = dict;
 
         this.prefixes = new HashSet<>();
-        this.wordToRep = new TreeMap<>();
         for (String word : dict) {
-            String rep  = "";
-            for (int i = 0; i < word.length(); i++) {
-                rep += charToRep.get(word.charAt(i));
-                prefixes.add(word.substring(0, i + 1));
+            for (int i = 1; i <= word.length(); i++) {
+                prefixes.add(word.substring(0, i));
             }
-            wordToRep.put(word, rep);
         }
     }
 
-    /*
+    
     public Collection<String> decode(String input) {
         Stack<String> options = new Stack<>();
         decode(input, options, "", "");
@@ -74,28 +69,6 @@ public class MorseDecoder {
             }
         }
     }
-    */
-
-    
-    public Collection<String> decode(String input) {
-        Stack<String> options = new Stack<>();
-        decode(input, options, "");
-        return options;
-    }
-
-    private void decode(String input, Stack<String> options, String sentence) {
-        if (input.isEmpty()) {
-            options.push(sentence);
-        } else {
-            for (String word : wordToRep.keySet()) {
-                String rep = wordToRep.get(word);
-                if (input.startsWith(wordToRep.get(word))) {
-                    decode(input.substring(rep.length()), options, sentence + " " + word);
-                }
-            }
-        }
-    }
-    
 
     public static void main(String[] args) throws FileNotFoundException {
         Scanner sc = new Scanner(new File("input.txt"));
