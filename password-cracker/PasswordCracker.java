@@ -14,7 +14,7 @@ public class PasswordCracker {
     public static final String CHARS = "1234567890" /* nums */
                                     //  + "abcdefghijklmnopqrstuvwxyz" /* alpha */
                                     //  + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" /* caps */
-                                    //  + "!@#$%^&*()-_=+`~[]{}\|;:'\",.<>/?" /* special */
+                                    //  + "!@#$%^&*()-_=+`~[]{}\\|;:'\",.<>/?" /* special */
                                      ; 
     // How many characters the "password" contains            
     public static final int NUM_CHARS = 4;
